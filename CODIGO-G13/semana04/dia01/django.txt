@@ -1,0 +1,14 @@
+django
+https://www.djangoproject.com/
+es opensource, framework que te ayuda a escribir rapidamente, y tu te 
+concentras en implementar, permite hacer facilmente una web
+1 rapida y con menos codigo.
+2 cuida mucho la seguridad, para evitar hackeos.
+3 Es escalable, significa que inicias con proyecto pequeño
+y lo puedes hacer mas grande, con django.
+Ejm instagram pinterest
+MVP  significa producto minimo viable,
+en los hackatones muchos usan django para crear un pmv
+
+LTS long time support, que la comunidad da soporte por mucho 
+tiempo, la 3.4 hasta el 2024

@@ -1,0 +1,18 @@
+1ER PASO  En MySQL Workbench:
+Exportar base de datos a SQL
+File > Export > Forward > el primero..
+Coloco la ruta,
+Marco Script creationn of indexes
+Export MySQL table objects... la primera
+
+2DO PASO Iniciar Laragon
+Iniciar y abrir terminal y de ahi abre el vsc
+
+3ER PASO En VSC 
+Abro el Database en (dibujo delfin servidor)127.0.0.1 doy
+actualizar.
+Click derecho importar SQL y selecciono el archivo.
+(se puede importar dando click en cursos o en el servidor,ambos
+funciona,ojo el db_colegio debe estar misma altura que cursos db)
+Vuelvo actualizar el delfin servidor y apareceran
+los archivos y el importado.

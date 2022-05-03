@@ -1,0 +1,23 @@
+CURRENT_TIMESTAMP
+coloca la fecha en que se refistra la fdecha
+
+¿Cuando usar valor numerico o ..?
+solo si vas a usar el valor como numero, el celular
+no aplica ni el dni,porq no hare operaciones con ello
+
+DOUBLE
+como un float valor numerico que permite decimales
+
+Cuando hay relacion muchos a muchos,
+Se crea una tabla intermedia sola y con linea continua.
+
+Diferencia entre linea punteada y continua
+--->
+___>al mismo tiempo son clave foranea y PK, pero no es 
+practico, para consultar es mas complicado.
+
+Por eso mejor yo misma creo la tabla intermedia 
+click en uno a muchos,click en hijos, luego en padre.
+Asi uno matricula_curso con evaluacion.
+
+

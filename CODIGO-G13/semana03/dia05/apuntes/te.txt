@@ -1,0 +1,8 @@
+entrar a laragon  abrir en curso, 
+base de datos
+le cambio el nombre a unnamed
+le doy abrir
+cargar archivo sql (solo para el caso de alguiebn que no tenga la base de datos)
+en mi caso si tengo la bd 
+
+Luergo configurar el entorno virtual

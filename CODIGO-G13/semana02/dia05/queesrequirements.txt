@@ -1,0 +1,14 @@
+se crea archivo requirements.txt
+flask
+firebase_admin
+con eso adentro
+pip install -r requirements.txt
+para tener las dependencias que usamos, cada vez que llevo un proyecto de un lugar a otro, tenog el archivo de requiments.txt que son las dependencias, para saber las librerias que uso.
+siempre py tiene un archivo txt que dice que dependencias usaron, para saber que instalar.
+para ejecutar e instalar lo que esta en ese archivo txt ejecutamos pip install -r requirements.txt
+
+#TOKEN.JSON
+el TOKEn esta afuera dentro de dia05, 
+se genera una clave privada del proyecto, y eso se hace en la tuerca 
+config del proyecto -> cta servicio > python y clave privada
+

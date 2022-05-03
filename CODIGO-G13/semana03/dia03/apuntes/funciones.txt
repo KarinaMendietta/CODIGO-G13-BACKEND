@@ -1,0 +1,20 @@
+db_colegio click en open query y poner funcion
+
+CREATE para crear funcion
+fn significa funcion
+que me retorne cuantos cursos hay.
+
+BEGIN iniciar 
+DECLARE declarar variable
+SELECT count(*) from tbl_curso; me va retornar la cantidad de cursos que son
+SELECT count(*) into total from tbl_curso; el resultado lo ponga en total
+RETURN total; aca retornara
+END finalizar
+
+El delimitador ; finaliza la sentencia, entonces puedo cambiarlo
+DELIMITER $$ lo pongo antes de mi sentencia y lo cierro con $$ al final
+
+Lo guardo file > save as > funciones
+
+
+

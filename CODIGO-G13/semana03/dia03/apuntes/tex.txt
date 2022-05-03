@@ -1,0 +1,12 @@
+
+
+tope, si son 6 cursos hara el bucle hasta el tope,
+cuando llegue al tope se saldra del bucle 
+
+Cree contador para matricula, matriculandolo en todos los cursos
+
+Hago bucle con loop
+que contador se mayor que tope para que pare el bucle
+lo inserto en 
+
+LEAVE bucle para salirme del bucle

@@ -1,0 +1,24 @@
+como tener diferentes librerias en la misma computadora
+
+#creacion de entorno virtual para gitbash windows
+python -m venv venv
+
+#ver si se creo la carpeta venv
+ls
+
+#para activarlo
+source venv/Scripts/activate
+(venv) eso aparece al dar enter
+
+#para desactivar
+deactivate
+
+# para ver lo instalado; cuando este activado sera solo del entorno, y cuando desactivado sera el general de siempre
+pip freeze
+
+#para que no suba el venv al repositorio
+crear carpeta .gitignore y adentro poner
+venv/
+
+Instalaciones 
+instale flask con pip install flask, y me instalo otras cosas mas

@@ -1,0 +1,21 @@
+cON JOIN stoy haciendo consulta a diferentes tablas
+
+Join de la tabla tal  a la tabla  tal
+Quiero traer la fechad e alumno, alumno no esta en matricula, pero 
+puedo traerlo
+
+PRIMERO traigo
+DE MATRICULA CURSO A MATRICULA 
+--
+select * from tbl_matricula_curso
+
+hacerle mulktiples join, enlazando a la tabla matricula.
+De tabla matricula. a las demas 
+
+CREAR VISTA
+Se crea una vista con ese nombre en views del BS(cilindro), se comporta
+como tabla, cuando quiero usarlo lo llamo.
+CREATE VIEW vw_matricula_notas AS
+
+
+se puede exportar a excel usando un lenguaje de programacion, con python

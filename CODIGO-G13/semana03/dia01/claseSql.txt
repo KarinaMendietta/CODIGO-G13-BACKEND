@@ -1,0 +1,300 @@
+https://www.mockaroo.com/
+PAGINA PARA generar data, nos servira para hacer pruebas
+créo la base la descargo , lo pongo dentro de sem03dia01, sigo en el 
+cmder y me ubico ahi, 
+pwd me indica en que ruta estoy
+C:\DESARROLLO\CODIGO\CODIGO-G13\semana03\dia01 (semana03)
+λ ls
+alumno.sql  claseSql.txt  dia.sql
+(veo que si esta)
+
+cat alumno.sql    para ver el contenido del archivo
+
+λ mysql -h localhost -u root -p cursos < alumno.sql     cursos es la database q habia creado al inicio
+Enter password:
+
+λ mysql -h localhost -u root -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+....hay mas escrito
+
+mysql> use cursos;          asi me ubico en la database cursos
+Database changed
+
+mysql> select * from alumno;
+
++-----+------------+-------------+--------------------------------------+-----------+------+ 
+| id  | nombres    | apellidos   | email                                | pais      | nota | 
++-----+------------+-------------+--------------------------------------+-----------+------+ 
+|   1 | Ewan       | Normanville | enormanville0@nationalgeographic.com | Peru      |   18 | 
+|   2 | Carree     | Baalham     | cbaalham1@narod.ru                   | Ecuador   |   10 | 
+|   3 | Sherwin    | Krollman    | skrollman2@narod.ru                  | Colombia  |   15 | 
+|   4 | Zandra     | Bernaldo    | zbernaldo3@omniture.com              | Argentina |   14 | 
+|   5 | Kalie      | Locker      | klocker4@squidoo.com                 | Argentina |   11 | 
+... hasta el 100
+
+
+mysql> select count(*) from alumno;
++----------+
+| count(*) |
++----------+
+|      100 |
++----------+
+1 row in set (0.01 sec)
+
+PROMEDIO DE NOTAS    avg es average osea promedio
+mysql> select avg(nota) from alumno;
++-----------+
+| avg(nota) |
++-----------+
+|   14.8400 |
++-----------+
+
+mysql> select min(nota),avg(nota),max(nota) from alumno;
++-----------+-----------+-----------+
+| min(nota) | avg(nota) | max(nota) |
++-----------+-----------+-----------+
+|        10 |   14.8400 |        20 |
++-----------+-----------+-----------+
+
+mysql> select max(nota) from alumno where pais='Peru';
++-----------+
+| max(nota) |
++-----------+
+|        20 |
++-----------+
+
+mysql> select * from alumno where nota > 10 and pais='Peru';
++----+------------+-------------+--------------------------------------+------+------+
+| id | nombres    | apellidos   | email                                | pais | nota |
++----+------------+-------------+--------------------------------------+------+------+
+|  1 | Ewan       | Normanville | enormanville0@nationalgeographic.com | Peru |   18 |
+|  8 | Wilfred    | Delacroux   | wdelacroux7@cloudflare.com           | Peru |   19 |
+| 10 | Roarke     | Andell      | randell9@ft.com                      | Peru |   20 |
+| 36 | Saunderson | Firebrace   | sfirebracez@aboutads.info            | Peru |   11 |
+| 43 | Cookie     | Silverwood  | csilverwood16@wikia.com              | Peru |   19 |
+| 45 | Zachariah  | Georgeon    | zgeorgeon18@answers.com              | Peru |   14 |
+| 51 | Ayn        | Sollner     | asollner1e@sfgate.com                | Peru |   18 |
+| 53 | Carroll    | Algar       | calgar1g@mozilla.org                 | Peru |   18 |
+| 61 | Christal   | Michin      | cmichin1o@miitbeian.gov.cn           | Peru |   12 |
+| 65 | Sarette    | Denyukhin   | sdenyukhin1s@wikipedia.org           | Peru |   19 |
+| 67 | See        | Stanhope    | sstanhope1u@earthlink.net            | Peru |   13 |
+| 75 | Cal        | Wilshaw     | cwilshaw22@unblog.fr                 | Peru |   18 |
+| 76 | Saundra    | Kennan      | skennan23@amazon.co.jp               | Peru |   14 |
+| 91 | Giulia     | Brazear     | gbrazear2i@youtube.com               | Peru |   16 |
+| 99 | Matthiew   | Skeete      | mskeete2q@prweb.com                  | Peru |   11 |
++----+------------+-------------+--------------------------------------+------+------+
+
+mysql> select avg(nota) from alumno where pais='Peru';
++-----------+
+| avg(nota) |
++-----------+
+|   15.6250 |
++-----------+
+
+mysql> select * from alumno where nota > (select avg(nota) from alumno where pais='Peru') and pais= 'Peru';
++----+---------+-------------+--------------------------------------+------+------+
+| id | nombres | apellidos   | email                                | pais | nota |
++----+---------+-------------+--------------------------------------+------+------+
+|  1 | Ewan    | Normanville | enormanville0@nationalgeographic.com | Peru |   18 |
+|  8 | Wilfred | Delacroux   | wdelacroux7@cloudflare.com           | Peru |   19 |
+| 10 | Roarke  | Andell      | randell9@ft.com                      | Peru |   20 |
+| 43 | Cookie  | Silverwood  | csilverwood16@wikia.com              | Peru |   19 |
+| 51 | Ayn     | Sollner     | asollner1e@sfgate.com                | Peru |   18 |
+| 53 | Carroll | Algar       | calgar1g@mozilla.org                 | Peru |   18 |
+| 65 | Sarette | Denyukhin   | sdenyukhin1s@wikipedia.org           | Peru |   19 |
+| 75 | Cal     | Wilshaw     | cwilshaw22@unblog.fr                 | Peru |   18 |
+| 91 | Giulia  | Brazear     | gbrazear2i@youtube.com               | Peru |   16 |
++----+---------+-------------+--------------------------------------+------+------+
+
+PARA CREAR BACKUP VER VIDEO
+
+mysqldump -h localhost -u root -p cursos > cursos.sql
+
+ls
+
+cat cursos.sql|
+
+mysql -h localhost -u root -p
+
+crear archivo creacion_tabla_alumno.sql y adentro poner parte del codigo que sale 
+del comando de arriba, ver archivo
+CREATE TABLE alumno (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  nombres varchar(100) NOT NULL,
+  apellidos varchar(100) NOT NULL,
+  email varchar(100) NOT NULL,
+  pais varchar(100) DEFAULT 'Perú',
+  nota int(11) DEFAULT '0',
+  PRIMARY KEY (id)
+)
+
+mysql -h localhost -u root -p
+Enter
+use cursos 
+pegar esa parte de archivo copiar y pegar
+CREATE TABLE alumno (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  nombres varchar(100) NOT NULL,
+  apellidos varchar(100) NOT NULL,
+  email varchar(100) NOT NULL,
+  pais varchar(100) DEFAULT 'Perú',
+  nota int(11) DEFAULT '0',
+  PRIMARY KEY (id)
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--.---
+ver el inicio en mi cuadernos, primeros comandos
+
+mysql> UPDATE alumno
+    -> SET pais = 'Chile';
+
+mysql> UPDATE alumno SET pais= 'PERÚ'
+    -> WHERE id = 1;
+
+mysql> UPDATE alumno
+    -> SET pais = 'Chile'
+    -> WHERE nombres = 'Aldo';
+
+mysql> UPDATE alumno
+    -> set pais = 'Bolivia'
+    -> WHERE id between 4 and 5;
+
+mysql> DELETE from alumno
+    -> WHERE id = 5;
+
+mysql> INSERT into alumno(nombres,apellidos,email)
+    -> values('Pedro','Navarro','pnavarro@gmail.com');
+
+#PARA CONSULTA
+mysql> select CONCAT(nombres,apellidos) as nombre_completo from alumno;
++-----------------+
+| nombre_completo |
++-----------------+
+| cesarmayta      |
+| RocioPerez      |
+| JoseLuna        |
+| AnaGarcia       |
+| AldoMendietta   |
+| PedroNavarro    |
++-----------------+
+
+mysql> select UPPER(CONCAT(nombres," ",apellidos)) as nombre_compléto from alumno;
++-----------------+
+| nombre_compléto |
++-----------------+
+| CESAR MAYTA     |
+| ROCIO PEREZ     |
+| JOSE LUNA       |
+| ANA GARCIA      |
+| ALDO MENDIETTA  |
+| PEDRO NAVARRO   |
++-----------------+
+
+FILTRAR POR PAIS PERU
+mysql> select * from alumno
+    -> where pais = 'Perú';
+
+FILTRAR POR gmail PERU
+mysql> select * from alumno
+    -> where email like '%@gmail.com';
+
+ACTUALIZAR ALUMNO
+mysql> update alumno
+    -> set email = 'cesarmayta@gmail.com'
+    -> where id = 1;
+
+AÑADIR NOTA POR DEFAULT 0 A TODOS
+mysql> ALTER TABLE alumno
+    -> ADD COLUMN nota INT DEFAULT 0;
+mysql> select * from alumno;    
++----+---------+-----------+------------------------+---------+------+
+| id | nombres | apellidos | email                  | pais    | nota |
++----+---------+-----------+------------------------+---------+------+
+|  1 | cesar   | mayta     | cesarmayta@gmail.com   | PERÚ    |    0 |
+|  2 | Rocio   | Perez     | rocioperez@gmail.com   | Chile   |    0 |
+|  3 | Jose    | Luna      | jluna@gmail.com        | Chile   |    0 |
+|  4 | Ana     | Garcia    | anitafeliz@yahoo.com   | Bolivia |    0 |
+|  6 | Aldo    | Mendietta | alditotriste@gmail.com | Chile   |    0 |
+|  7 | Pedro   | Navarro   | pnavarro@gmail.com     | Perú    |    0 |
++----+---------+-----------+------------------------+---------+------+  
+
+ELIMINAR TODA LA TABLA
+mysql> TRUNCATE table alumno;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from alumno;
+Empty set (0.00 sec)
+
+
+me muestra pais y al lado la cantidad de alumnos por pais
+mysql> select pais, count(*) from alumno
+    -> GROUP BY pais;
++-----------+----------+
+| pais      | count(*) |
++-----------+----------+
+| Argentina |       15 |
+| Bolivia   |        1 |
+| Brazil    |       43 |
+| Chile     |        3 |
+| Colombia  |       16 |
+| Ecuador   |        2 |
+| Peru      |       16 |
+| Venezuela |        4 |
++-----------+----------+
+
+ordenarlos de menos a mas
+mysql> select pais, count(*) from alumno group by pais order by count(*) desc;
++-----------+----------+
+| pais      | count(*) |
++-----------+----------+
+| Brazil    |       43 |
+| Colombia  |       16 |
+| Peru      |       16 |
+| Argentina |       15 |
+| Venezuela |        4 |
+| Chile     |        3 |
+| Ecuador   |        2 |
+| Bolivia   |        1 |
++-----------+----------+
+
+mysql> select pais, count(*) as cantidad, avg(nota) as "nota promedio" from alumno
+    -> group by pais;
++-----------+----------+---------------+
+| pais      | cantidad | nota promedio |
++-----------+----------+---------------+
+| Argentina |       15 |       14.8667 |
+| Bolivia   |        1 |       17.0000 |
+| Brazil    |       43 |       14.7907 |
+| Chile     |        3 |       13.6667 |
+| Colombia  |       16 |       14.4375 |
+| Ecuador   |        2 |       12.5000 |
+| Peru      |       16 |       15.6250 |
+| Venezuela |        4 |       15.2500 |
++-----------+----------+---------------+
+
+quiero filtrar todos los paises cuya nota promedio es mayor a 15
+mysql> select pais, count(*) as "cantidad", avg(nota) as "promedio" from alumno
+    -> group by pais
+    -> having avg(nota) >=15;                   having es una condicional
++-----------+----------+----------+
+| pais      | cantidad | promedio |
++-----------+----------+----------+
+| Bolivia   |        1 |  17.0000 |
+| Peru      |       16 |  15.6250 |
+| Venezuela |        4 |  15.2500 |
++-----------+----------+----------+

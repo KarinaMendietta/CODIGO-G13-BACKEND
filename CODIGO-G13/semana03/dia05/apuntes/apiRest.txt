@@ -1,0 +1,243 @@
+Crear API REST
+Se puede crear sitio web completo con flask, pero quiero craer appi rest
+
+Una parte corre en servidor concocido como backend
+Del lado del cliente es el front end
+
+Del backend la mejor forma de exponer la ifnormacion para que luego el 
+front lo coja y muestre, se conoce como un API REST.
+Interfaz de programacion de aplicaciones.
+
+Antes era XML ahora es JSON, formato de clave valor, donde expones tu info,
+para que el cliente puede obtener y actualizar.
+Solicitar o hacer diferentes tareas, insercion consulta actualizacion eliminiacion
+de datos, a traves de protocolo http
+Devuelve la informacion, tanto lo que recibe como lo que envia es en 
+formato JSON
+
+typycal http verbs:
+GET
+PUT
+PATCH insertar
+POST envio update (creo) y la base hace un POST
+DELETE , envio delete y la base hace delete
+
+PASOS ENTORNO VIRTUAL
+Creo entorno virtual 
+python -m venv venv
+
+Activo el entorno
+$ source venv/Scripts/activate
+(venv) aparecera eso significa que el entorno esta activo
+
+Instalo flask
+pip install flask
+
+Instalo libreria que conecta python con mysql
+pip install flask-mysqldb
+
+Para ver las librerias que tengo instaladas
+pip freeze
+
+----------
+creo objeto de clase flask 
+app = Flask(__name__)
+
+esto del parentesis es un diccionario,jsonify lo convierte en json     
+@app.route('/')
+def index():                  
+    return jsonify({           
+        'status':'OK',                   
+        'mensaje':'Bienvenido a mi apiRest con Flask'
+    })
+
+if __name__== "__main__":
+    app.run    
+
+EJECUTAR
+Configurar variable de entorno
+export FLASK_APP=main.py
+flask run
+
+ó para no complicarnos,el profe dijo usemos
+py main.py
+
+ME SALE EN EL PUERTO 5000
+// 20220429220916
+// http://127.0.0.1:5000/
+
+{
+  "mensaje": "Bienvenido a mi apiRest con Flask",
+  "status": "OK"
+}
+--------
+METODO GET  traer
+
+CONECTAR DE FLASK A MYSQL
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_DB'] = 'db_colegio'
+
+mysql = MySQL(app)    Recibe como parametro el app
+
+@app.route('/')
+def index():
+    return jsonify({
+        'status':'OK',
+        'mensaje':'Bienvenido a mi apirest con Flask'
+    })
+    
+@app.route('/alumno')   Crear nueva ruta, ES METODO GET , no es necesario especificar el GET
+def getAlumno():
+    cursor = mysql.connection.cursor()    Puente entre mysql y server y se guarda en cursor
+
+    cursor.execute("select * from tbl_alumno")     execute ejecuta la consulta
+    
+    data = cursor.fetchall()      fetchall()  retorna la info que tiene mi consulta sql, se almacenara en data
+    
+    cursor.close()    cerrar cursor 
+    
+    print(data)
+    
+    return jsonify({              el json con el mensaje que saldra                      
+        'ok':True,
+        "message":"lista de alumnos",
+        "content":data
+    })
+    
+if __name__ == "__main__":
+    app.run(debug=True,port=5000)
+
+
+servidor de flask 127.0.0.1:5000 o localhost:5000 en el navegador
+cuando coloco la ruta 127.0.0.1:5000/alumno me retorna los alumnos en json
+seria respuesta get, que consulta de una base de datos.
+
+METODO POST  enviar
+
+@app.route('/alumno',methods=['POST'])  necesario colocar post
+
+EXTENSION DE VSC Thunder Client instalar
+click en el rayo > new request 
+Marcar POST y poner ruta  http://localhost:5000/alumno  OJO no colocar https 
+cuando tiene esa s pide SCL certificado de seguridad, aun no hemos visto en clase
+
+Headers   marcar los siguientes
+Accept          */*
+User-Agent      Thunder Client (https://www.thunderclient.com)
+Content-Type    application/json
+
+Body
+{
+    "nombre":"Laura Espinoza",
+    "celular":"98574555",
+    "github":"https://www.github.com/lauraespinoza"
+}
+Luego enviar
+
+METODO PUT actualizar
+Tengo que obtener lo que voy a actualizar, y el id
+entonces antes de actualizar creo un metodo para obtener 
+un solo registro
+@app.route('/alumno/<id>')
+def getAlumnoById(id):
+   cursor=mysql.connection.cursor()
+   cursor.execute("select * from tbl_alumno where alumno_id = '"+ id + "'")
+
+   data = cursor.fetchall()
+   
+   cursor.close()
+   
+   print(data)
+   
+   return jsonify({
+       'ok':True,
+       "message":"datos de un alumno",
+       "content":data
+   })
+
+Luego voy a rayo, new request > Get > coloco la ruta 
+http://localhost:5000/alumno/1
+y send 
+Me traera 
+{
+  "content": [
+    [
+      1,
+      "César Mayta",
+      "cesarmayta@gmail.com",
+      "956290589",
+      "https://github.com/cesarmayta"
+    ]
+  ],
+  "message": "datos de un alumno",
+  "ok": true
+}
+
+HAGO OTRO METODO
+@app.route('/alumno/<id>',methods=['PUT'])
+def updateAlumno(id):
+    nombre = request.json['nombre']
+    email = request.json['email']
+    celular = request.json['celular']
+    github = request.json['github']
+
+    cursor = mysql.connection.cursor()
+    sqlUpdateAlumno = "update tbl_alumno set "
+    sqlUpdateAlumno += "alumno_nombre='"+ nombre +"',alumno_email='"+ email +"'"
+    sqlUpdateAlumno += ",alumno_celular='"+ celular+"',alumno_github='"+ github +"' "
+    sqlUpdateAlumno += "where alumno_id = '"+ id +"'"
+    cursor.execute(sqlUpdateAlumno)
+
+    mysql.connection.commit()
+    
+    cursor.close()
+    
+    return jsonify({
+        "ok":True,
+        "message":"registro actualizado exitosamente"
+    })
+
+Ingreso en rayo > New Request > PUT > ruta: http://localhost:5000/alumno/1
+
+Json Content poner
+{
+    "nombre":"cesar mayta",
+    "email":"cesarmayta@gmail.com",
+    "celular":"98888888",
+    "github":"https://www.github.com/cesarmayta"
+}
+
+Response
+{
+  "message": "registro actualizado exitosamente",
+  "ok": true
+}
+
+METODO DELETE
+@app.route('/alumno/<id>',methods=['DELETE'])
+def deleteAlumno(id):
+    
+    cursor = mysql.connection.cursor()
+    sqlDeleteAlumno = "delete from tbl_alumno "
+    sqlDeleteAlumno += "where alumno_id = '"+ id +"'"
+    cursor.execute(sqlDeleteAlumno)
+
+    mysql.connection.commit()
+
+    cursor.close()
+
+    return jsonify({
+        "ok":True,
+        "message":"registro eliminado exitosamente"
+    })
+    
+
+mysql.connection.commit() enmvia a base de datos
+Ingreso en rayo > New Request > PUT > ruta: http://localhost:5000/alumno/2
+y salio error porq tiene una llave foranea, entonces ahi va a solucionar
+
+
+
+

@@ -1,0 +1,16 @@
+PROCEDIMIENTO ALMACENADO
+CREATE  siempre tienen un verbo, como valor de entrada pueden recibir
+IN INT ID.son los campos de la tabla matricula: alumno,nively modulo
+
+COMO VERIFICAR
+Voy a DataBase(cilindro) en procedures y aparecio sp_matricular_alumno
+
+Para eliminar el procedure
+Como ejecuto se crea un sp_matricular_alumno como
+estaba mal.
+Elimino sp_matricular_alumno,que esta dentro de
+procedure, click derecho DROP procedure yes.
+
+Crea la matricula y crea los cursos de la matricula
+Elk nivel y modulo
+Esto matricula un solo alumno

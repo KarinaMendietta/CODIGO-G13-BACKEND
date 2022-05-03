@@ -1,0 +1,135 @@
+1ero creo entorno virtual
+python -m venv venv
+source venv/Scripts/activate
+pip freeze (no tengo aun ninguna libreria)
+pip install django
+pip freeze   y veo Django==4.0.4
+
+django-admin me dice los <subcommand>
+
+Crear projecto
+django-admin startproject encuesta
+me crea una carpeta encuesta, asi creo el projecto
+lo reviso y hay una estructura en esa carpeta encuesta
+hago cd encuesta
+ls    veo que debe estar manage.py
+python manage.py runserver
+
+PARA RUTAS
+Entro a urls.py 
+cada valor de la ruta se conoce como path
+
+def index(request):  todos los metodos que son rutas deben recibir
+defecto un parametro request
+
+def index(request):
+    return HttpResponse("<center><h1>Hola mundo en django<h1></center>")
+  
+urlpatterns = [
+    path('',index),
+    path('admin/', admin.site.urls),
+]
+
+MTV model template view 
+Modelo vista controlador,se divide en 3 secciones el codigo
+Modelo sirve para conectarse a la base de datos
+vista Tiene la logica para traerme informaciond de la bd, discuto
+las funciones que ca tener, ahi ejecuto el view 
+template es para mostrarlo en el navegador,
+
+1. URL map  de ahi detecta la ruta, en un solo archivo no debe estar todo 
+el codigo, asi que lo enlazo al archivo view.
+
+Los 3 en model view template, no va pertenecer dentro del proyecto,
+se crea algo llamado APP, en flask se llamaba blueprint
+
+COMO CREO APP
+python manage.py startapp appfront
+y te crea esa carpeta , ahora hay que registrar
+este app en el archivo settings.py 
+Voy a encuesta y me ubico en setting.py, me ubico en 
+INSTALLED_APPS y agrego mi app 'appfront',
+
+En views.py 
+from django.shortcuts import render
+from django.http import HttpResponse
+
+# Create your views here.
+def app_index(request):
+    return HttpResponse('<h1>INDEX DE MI APP</h1>')
+
+En urls.py
+from django.http import HttpResponse
+from appfront import views
+
+path('encuesta/',views.app_index),
+
+Lo ideal seria 
+Independizar archivos urls.py para que vivan dentro 
+de cada aplicacion
+como unir ese url con el url general del projecto
+
+appfront>urls
+from django.urls import path
+
+from . import views
+
+urlpatterns = [
+    path('',views.app_index,name='index'),
+    path('<int:pregunta_id>',views.detalle,name='detalle')
+] 
+
+appfront > views
+# Create your views here.
+def app_index(request):
+    return HttpResponse('<h1>INDEX DE MI APP</h1>')
+
+def detalle(request,pregunta_id):
+    return HttpResponse('pregunta nro %s.' % pregunta_id) 
+
+encuesta>urls.py
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+from django.contrib import admin
+from django.urls import path
+from django.urls import path,include
+from django.http import HttpResponse
+from appfront import views
+
+
+def index(request):
+    return HttpResponse("<center><h1>Hola mundo en django</h1></center>")
+
+
+urlpatterns = [
+    path('',index),
+    path('encuesta/',views.app_index),
+    path('encuesta/',include('appfront.urls')),
+    path('admin/', admin.site.urls),
+]
+
+TEMPLATES
+Creo carpeta en appfront templates, adentro un index.html 
+<body>
+    <center><h1>{{ titulo }}</h1></center>
+</body>
+
+En encuesta> appfront> views.py
+def app_index(request):
+    #return HttpResponse('<h1>INDEX DE MI APP</h1>')
+    titulo='ENCUESTA A ALUMNOS'
+    context={
+          'titulo':titulo
+    }      
+    return render(request,'index.html',context)
+
+
+
+
+
+
+
+
+
+
+

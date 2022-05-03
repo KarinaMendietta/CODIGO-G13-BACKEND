@@ -1,0 +1,29 @@
+--TRIGGER O DISPARADORES
+Tu pones cuando se va disparar, que cuando pongan tal cosa, se cree
+otra cosa.Ayuda mucho con bases antiguas sobre todo
+
+Tecsup, a todos los alumnos se les creara un correo electronico nuevo,
+no importa si ya tenia registrado su propio correo.
+nuevo que se igual al nombre del alumno en minusculas@elcodigodelalumno
+
+CREAR correo electronico
+lower(alumno_nombre) nombre alumno en minusculas
+REPLACE(lower(alumno_nombre),'','') me remplaza espacio en blanco por nada
+CONCAT(REPLACE(lower(alumno_nombre),'',''),'@tecsup.edu.pe')
+converti el nombre del alumno en correo electronico
+
+
+
+BEFORE INSERT cambio antes del INSERT   (hay inserte update y delete)
+
+tg del correo lo veras tgcorreo_alumno en bd en HS
+
+
+
+
+
+
+
+
+
+

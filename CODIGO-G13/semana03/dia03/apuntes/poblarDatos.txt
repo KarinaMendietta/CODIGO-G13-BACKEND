@@ -1,0 +1,18 @@
+Poblar datos
+Voy a mi db_colegio, click derercho en un dibujo de hojita
+ es Open query. Se abre un archivo y Ahi comienzo a poblar.
+
+Verificar :
+Comencé a ejecutar cada run, en orden y verifiqué en Database 
+(icono de cilindro en VSC) en las tablas padre: alumno,curso,
+evaluacion,modulo y nivel que se poblaron con los datos 
+del archivo.
+
+Cuando termino de poblar correctamente, guardo el archivo: file >
+save as y busco la ruta de mi sem03 dia03, lo guardo como 
+db_colegio_poblado .
+
+
+OJO
+Si ya poblaste, no puedes editar el archivo y pensar que se actualizara
+lo poblado ya guardado, a menos que hagas un truncate, (y hacer de nuevo algo asi escuche)
