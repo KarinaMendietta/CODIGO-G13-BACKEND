@@ -12,3 +12,6 @@ en los hackatones muchos usan django para crear un pmv
 
 LTS long time support, que la comunidad da soporte por mucho 
 tiempo, la 3.4 hasta el 2024
+
+django tiene un proyecto general y adentro tiene apps 
+especificas,dentro de cada app tiene el MTV 

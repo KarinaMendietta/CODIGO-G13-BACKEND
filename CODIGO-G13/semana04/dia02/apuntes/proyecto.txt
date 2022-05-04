@@ -1,0 +1,119 @@
+DJANGO PROYECTO
+Antes abre tu laragon
+
+1. Crear entorno virtual
+python -m venv venv
+
+2. Activar entorno virtual
+source venv/Scripts/activate
+
+3.Instalar Django
+pip install Django
+
+4.Crear el proyecto con Django
+django-admin startproject recetas    
+Crea la carpeta recetas generica osea el proyecto completo, y la carpeta 
+recetas interna aparte. Siempre viene con un __init__.py 
+
+5. Crear el app en el proyecto
+cd recetas   entro, ubico al manage.py 
+python manage.py startapp app   y asi creo la carpeta app
+
+Luego creo carpeta templates 
+
+paso 6 editar settings.py
+INSTALLED APPS-[
+        'app',
+
+paso 7-desplegar el proyecto
+python manage.py runserver
+
+[El settings tiene configuracion del proyecto, empezando por un 
+SECRET_KEY seguridad para formularios, diferentes acceso, es mas 
+te genera uno en automatico, hay que encapsularlo, no podemos subirlo
+al github asi no mas.
+DEBUG true modo desarrollo 
+ALLOWED HOSTS para que ciertas compus direcciones ip entren a mi sistema
+INSTALLED APPS aplciaciones que el proyecto tiene instaladas, tiene
+admin,auth(ve el login de usuarios, ya viene con tabla de identificacion
+de usuarios,)staticfies (archivos js css de ese tipo)
+MIDDLEWARE, controla aspecto de manejo de sesiones, segurirdad, otros
+ROOT URLCONF indica donde va estar las rutas de django 
+TEMPLATES  manejar gestor de plantilla de django 
+DATABASEs soporta orcle , postsql, mysql, sqllite
+AUTH PASSWORD .. validaciones
+DEFAULT AUTO FIELD numeros grandes]
+
+en URL Map, django busca la ruta que quiero buscar, mejor es crear
+una ruta para cada app .
+Modelo django MTV modelo vista controlador,
+
+
+Que este creada la carpeta templates ( ya la habia creado) 
+
+ORM 
+es una tabla, libreria que va convertir cualquier base de datos 
+en una clase, tendria atributos (las columnas) y metodos 
+
+Migracion pasar una tabla y convertirla a una base de datos 
+1.  python manage.py makemigrations 
+y asi aparece en carpeta migrations 
+2.  python manage.py migrate 
+Instalar extension MySql, ya la tengo instalada(2daopcion). 
+
+Me conecto a base de datos(el cilindro)
+Creo una nueva conección llamada recetas < mysql lite > Choose database
+abro archivos > entro dentro
+de recetas, ahi cambio abajo coloco file( )
+
+Entro a app receta, Insert new row by dialog
+
+Me equivoque y no habia puesto autor, entonces en models completo 
+autor = models.CharField(max_length=200,default='')  default='' eso lo pongo si o si para luego 
+Eliminar mi coneccion al db y volver a migrar, ahi ya aparecera 
+ 
+Clase de django forms 
+Viene con el tema de validaciones autenticaciones 
+
+En forms
+class RecetaForm (forms.Form):
+    titulo = forms.CharField(label='Titulo',max_lenght=100,required=True)
+    ingredientes = forms.Charfield(label='Ingredientes',widget=forms.Textarea)
+    preparacion = forms.CharField(label='Preparacion',widget=forms.Textarea) 
+    autor = forms.Charfield(label='Autor',max_lenght=200,required=True)
+ 
+ En index.html 
+<form method="post" action="#"
+  (* csrf_token %}
+ {{ frmReceta.as_p }}
+</form>
+.as_p para que coloque los inputs del form con salto de linea 
+
+guardar en la base de datos 
+Metodo save
+
+django crispy forms, es libreruia le da diseño de bootstrap a los formularios de django
+pip install django-crispy-forms
+https://django-crispy-forms.readthedocs.io/en/latest/install.html#installing-django-crispy-forms
+
+Modificar el html añadir al inicio {% load crispy_forms_tags %} antes del <!doctype html>
+ tambien añadir   {{ frmReceta|crispy }} y en settings tambien tienes que añadirle
+CRISPY_TEMPLATE_PACK = 'bootstrap4' al final y en 
+INSTALLED_APPS = [
+    'crispy_forms',   añadir eso
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

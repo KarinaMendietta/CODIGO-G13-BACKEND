@@ -1,0 +1,74 @@
+orm en django
+inyection.sql  a trav es de sentencias sql, puedes vulnerar una tabla y asi
+entrar a cualquier base de datos, 
+ORM viene del termino  object relation maping 
+django tiene una clase, models 
+Atributos equivalente a las columnas de mi base de datos
+cuando pasan por le orm , se convierten en tablas en mi base de datos, y 
+
+en ningun momento en orm se usa el sql, el sql es interno, el orm, lo utilizan
+diferentes frameworks no solo sql . son muy comunes, python  tienwe una libreria pura,
+que se llama sql alquemy, django viene con orm insertado lo tiene listo .
+
+Siempre  a la mano la documentacion 
+
+Migrar base de datos a MySQL,
+migrar la base de datos a otra que permite django,  otra caracteristica
+de orm es q es independiente de la base de datos, yo estoy trabajando con 
+una base de datos lite pero si yo quiero la puedo migrar a MySQL con una 
+configuracion sencilla la puedo convertir 
+En la imagen q mmuestra el profe, la tablita relacion uno a muchos sale que:
+Autor> tiene varias recetas > tiene avrios comentarios 
+
+Como represento esa estructura dentro de los modelos de django
+1ero voy a recetas>app>models.py   creo la clase autor
+class Autor(models.Model):
+    nombre = models.CharField(max_length=200)
+    email = models.EmailField(unique=True)   unique para q no se repitan los emails
+
+    def __str__(self):        __str__ para que cuando yo istancia me retorne el nombre del autor
+        return self.nombre  
+        
+class Receta(models.Model):
+    titulo = models.CharField(max_length=100)
+    ingredientes = models.TextField(help_text='redacta los ingredientes')
+    preparacion = models.TextField()
+    tiempo_registro = models.DateTimeField(auto_now=True)  auto_now que autogenera
+    autor = models.ForeignKey(Autor,on_delete=models.RESTRICT)      RESTRICT que si borro un autor no me va dejar tiene recetas, en cambio CASCADE va permitir borrar autor y recetas tmbn 
+
+    def __str__(self):
+        return self.titulo
+
+cd recetas
+python manage.py makemigrations   (crea campo autor receta y creo modelo comentario)
+python manage.py migrate
+El profe dijo que sale un error, enrtonces dijo hagamos de otra manera
+
+dbsqlite borrar 
+migrations en esa carpeta borro py cache y todos los files que 
+tienen el 000 , que solo quede el __ init__ py
+
+luego me voy a laragon base de datos,, entro, en la parte de arriba click
+derecho, nueva base de datos  db_receta  en utf8_bin
+
+linea  78 en settings cambio la anterior database={  jklhngjkshjdf}
+   por   ( lo saco del link de ahi )  y hago unos cambios mysql en vez de postgre
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',    
+            'NAME': 'db_recetas',
+            'USER': 'root',
+            'PASSWORD': '',
+            'HOST': '127.0.0.1',
+            'PORT': '5432',
+        }
+    }
+
+Ahora ejecutar
+python manage.py migrate
+
+pip install mysqlclient   instalar para trabajar, para trabajar con otra base de datos
+python manage.py migrate
+python manage.py makemigrations
+python manage.py migrate
+
