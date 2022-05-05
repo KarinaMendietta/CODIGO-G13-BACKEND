@@ -1,0 +1,241 @@
+El ORM de django convierte una tabla en clase 
+
+CREAR ENTORNO VIRTUAL
+python -m venv venv
+source venv/Scripts/activate        ACTIVAR ENTORNO
+
+pip install django       INSTALAR DJANGO
+
+django-admin startproject recetas  INICIAR PROYECTO
+
+cd recetas          ENTRO A RECETAS 
+
+python  manage.py startapp app   CREA LA CARPETA APP DENTRO DE RECETAS GENERICO
+
+INSTALLED_APPS = [
+    'app',             AÑADIR EL PROYECTO EN SETTINGS , añado app en INSTALLED_APPS
+
+CONECTAR NUESTRO PROYECTO DE DJANGO a 
+el sqlite3 que viene por defecto lo cambiare a Mysql 
+Tener instalado Mysql, EN laragon darle iniciar todo y ahi corre el MySql 
+Usar extension MySql database de vsc ya la tengo 
+
+Me voy al DB(el cilindro) , crear una nueva conección con el + recetasmysql en 
+MySQl y conectar. 
+Luego hago drop a las bases que ya estaban, click derecho a cada uno drop y luego 
+escribir el nombre de la base y enter, asi borrar cada uno, ahora si creo 
+una nueva base de datos, en el delfin con + y cmbio el nombre a db_receta.
+OJO quitar el [] y darle Run SQL, tiene que salir en verde.
+
+En settings 
+INSTALLED_APPS = [ estas de aca son otras aplicaciones que viene incluidas en django 
+por defecto, tambien tiene tablas, como migramos esas tablas. 
+django usa orm, que convierte las clases en tablas. 
+Hay que configurar el acceso de django a mysql
+cambio :
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+por 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'db_receta',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+    }
+}
+para que django pueda conectarse a mysql. 
+
+Django necesita una libreria para poder conectarme a mysql 
+se llama mysqlclient
+pip install mysqlclient    ojo cuando instale seguia yo en recetas 
+
+Ejecutar dentro de recetas 
+python manage.py migrate   migra las clases y las convierte a tablas
+
+app>models.py 
+como creo una tabla utilizando los modelos de django, seria con clases 
+las clases pueden heredar los atributos o metodos del padre.
+    
+veo que mi tabla tiene un campo id, django sabe que existe id 
+Charfield es el equivalente de varchar
+nombre = models.Charfield(max_lenght=200) es lo mismo que 
+nombre varchar(200)
+EmailField(unique=True) que no se repita el correo unique
+tiempo_registro = models.DateTimeField(auto_now=True)  auto_now que me genere la fecha automatico
+autor = models.ForeignKey()  foreignkey que es una llave 
+on_delete que cuando vas a borrar datos del padre, :
+    CASCADE si eliminas la receta te borra los comentarios
+    RESTRIC no te deja eliminar los comentarios
+    
+# Create your models here.
+class Autor(models.Model):
+    nombre = models.Charfield(max_lenght=200)
+    email = models.EmailField(unique=True)
+
+class Receta(models.Model):
+    titulo = models.CharField(max_lenght=100,unique=True)
+    ingredientes = models.TextField(help_text='redacta los ingredientes')
+    preparacion = models.TextField()
+    tiempo_registro = models.DateTimeField(auto_now=True)    
+    autor = models.ForeignKey(Autor,on_delete=models.RESTRICT)
+
+class Comentario(models.Model):
+    receta = models.ForeignKey(Receta,on_delete=models.CASCADE)
+    texto = models.TextField(help_text='comentario')    
+
+me ubico en recetas 
+python manage.py makemigrations    debe aparecer las 3 clases que he creado,  que quiero convertir a tablas
+    - Create model Autor
+    - Create model Receta
+    - Create model Comentario 
+
+python manage.py migrate         y verifico en tables de database que aparescan esas 3 nuevas tablas
+
+----.---
+
+abrir git bash
+source venv/Scripts/activate
+(venv)
+cd recetas
+(venv)
+ls
+app/  db.sqlite3  manage.py*  recetas/
+(venv)
+
+shell de django, donde puedo ejecutar codigo que funcione dentro de mi proyecto
+python manage.py shell         y abre una consola interactiva para trabajar con mi propyecto
+desde una terminal, pdoer ejecutar comando de python tal como si estuviera dentro de mi proyecto.
+Ejemplo un print y sale hola mundo 
+
+from app.models import Autor,Receta,Comentario     importando
+a = Autor(nombre='Cesar Mayta',email='cesarmayta@gmail.com')   crear un objeto
+a.save()  guardarlo
+Autor.objects.all()     me trae todos los registros 
+primer = Autor.objects.get(pk=1)  me trae un solo valor para que primer
+primer.nombre      sale de resultado CEsar Mayta
+r1 = Receta.objects.create(
+... titulo='Huevo frito',
+... ingredientes='huevo,sal,aceite',
+... preparacion='calentar la sarten y bla bla',
+... autor=primer)
+
+exit()   salir porque me equivoque escribi mal
+Vuelvo a entrar con 
+python manage.py shell 
+
+Luego importo las clases
+from app.models import Autor,Receta,Comentario
+
+Autor.objects.all()   y sale que si tengo autor, entonces todo bien 
+Receta.objects.all()  y sale si tengo recetas o no, como me salio que no, voy a crear
+la receta(eso era lo que me habia equivocado en escribir antes mi error)
+
+ c1 = Comentario.objects.create(
+... receta=r1,
+... texto='un clasico para el desayuno')
+>>> Comentario.objects.all()
+<QuerySet [<Comentario: Comentario object (1)>]>
+>>> r2 = Receta.objects.create(
+... titulo='Agua Hervida',
+... ingredientes='agua',
+... preparacion='poner la tetera en el blabla',
+... autor=primer)
+>>> Receta.objects.all()
+<QuerySet [<Receta: Receta object (1)>, <Receta: Receta object (2)>]>
+
+
+HACER UN CLEAR EN LA PANTALLA
+import os
+os.system('clear')   
+
+Receta.objects.exclude(ingredientes__startswith='A')
+
+Añadir en models.py de app 
+
+En clase autor
+    def __str__(self):
+        return self.nombre
+En clase receta
+    def __str__(self):
+        return self.titulo
+En clase comentario
+    def __str__(self):
+        return self.texto        
+
+exit()   salgo de la sesion, para vovler a entrar y capoture los cambios
+
+>>> exit()
+(venv)
+51948@LAPTOP-3IN0SJUT MINGW64 /c/codigo_backend/CODIGO-G13/semana04/dia03/recetas (main)
+$ python manage.py shell
+Python 3.9.7 (tags/v3.9.7:1016ef3, Aug 30 2021, 20:19:38) [MSC v.1929 64 bit (AMD64)] on win32
+
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from app.models import Autor,Receta,Comentario
+>>> Autor.Objects.all()
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+AttributeError: type object 'Autor' has no attribute 'Objects'
+>>> Autor.objects.all()
+<QuerySet [<Autor: Cesar Mayta>]>
+>>> Receta.objects.all()
+<QuerySet [<Receta: Huevo frito>, <Receta: Agua Hervida>]>
+>>>
+
+>>> Receta.objects.filter(preparacion__contains='tetera')
+<QuerySet [<Receta: Agua Hervida>]>
+>>> Receta.objects.all().order_by('titulo').reverse()
+<QuerySet [<Receta: Huevo frito>, <Receta: Agua Hervida>]>
+
+ACTUALIZACION
+>>> receta = Receta.objects.get(pk=1)
+receta.titulo
+'huevo frito'
+>>> receta.titulo = 'huevito frito'
+>>> receta.preparacion = 'no hay mucho que hacer,solo freir el huevo'
+>>> receta.save()
+
+ELIMINAR DATOS 
+>>> receta.titulo
+'huevito frito'
+>>> receta.delete()
+(2, {'app.Comentario': 1, 'app.Receta': 1})
+>>> Receta.objects.all()
+<QuerySet [<Receta: Agua Hervida>]>
+>>> Comentario.objects.all()
+<QuerySet []>
+>>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
