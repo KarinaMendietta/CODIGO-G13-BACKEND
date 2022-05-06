@@ -130,7 +130,7 @@ eso mismo lo copio y pego en la parte supérior del index, debajo de la linea 1 
 {% endblock %}
 entonces ahora vere que mi codigo esta separado y en la pagina se ve completo como antes .
 
-Me quedo con un solo article, borro los otros articles
+En index.html Me quedo con un solo article, borro los otros articles
 
 en views.py de web
 from django.shortcuts import render
@@ -145,5 +145,43 @@ def index(request):
     }
     return render(request,'index.html',context)
 
-Vuelvo al unico article que tentgo y le pongo al iniciar 
-{% }
+
+Vuelvo al unico article que tentgo de index y le pongo al iniciar 
+{% for producto in productos %}
+adentro va el article
+{% endfor %}
+
+ {% for producto in productos %}
+            <article class="cf-sm-6 cf-md-6 cf-lg-6 col-xs-6 col-sm-6 col-md-6 col-lg-6 sectgl-item">
+                <div class="sectgl prod-i">
+                    <div class="prod-i-top">
+                        <a class="prod-i-img" href="product.html">
+                            <img src="{{ producto.imagen.url }}" alt="">
+                        </a>
+                        <div class="prod-i-actions">
+                            <div class="prod-i-actions-in">
+                                <div class="prod-li-favorites">
+                                    <a href="wishlist.html" class="hover-label add_to_wishlist"><i class="icon ion-heart"></i><span>Add to Wishlist</span></a>
+                                </div>
+                                <p class="prod-quickview">
+                                    <a href="#" class="hover-label quick-view"><i class="icon ion-plus"></i><span>Quick View</span></a>
+                                </p>
+                                <p class="prod-i-cart">
+                                    <a href="#" class="hover-label prod-addbtn"><i class="icon ion-android-cart"></i><span>Add to Cart</span></a>
+                                </p>
+                                <p class="prod-li-compare">
+                                    <a href="compare.html" class="hover-label prod-li-compare-btn"><span>Compare</span><i class="icon ion-arrow-swap"></i></a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="prod-i-bot">
+                        <div class="prod-i-info">
+                            <p class="prod-i-price">${{ producto.precio }}</p>
+                            <p class="prod-i-categ"><a href="catalog-gallery.html">{{ producto.categoria.nombre }}</a></p>
+                        </div>
+                        <h3 class="prod-i-ttl"><a href="product.html">{{ producto.nombre }}</a></h3>
+                    </div>
+                </div>
+            </article>            
+            {% endfor %}
