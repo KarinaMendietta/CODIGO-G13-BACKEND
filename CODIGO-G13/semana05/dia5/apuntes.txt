@@ -1,0 +1,59 @@
+https://django-rest-framework-simplejwt.readthedocs.io/en/latest/
+
+API - DRF manda por metodo post el usuario y clave a react.js 
+react.js llama a una vista(q ya existe en jwt cuando lo instale )
+
+
+
+VS 
+REACT JS
+Hago login(usuario, password) 
+el JWT es un token 
+
+middleware / en settings 
+intercepta un request , antes que algo se envia, restringe y valida 
+si se envio el token, hay para formularios, entonces se usan 
+los middleware para autenticación 
+
+REST_FRAMEWORK 
+    autenticación basica BasicAuthentication y una de sesion SessionAuthentication 
+
+isAuthenticated que indica que ya fue autenticado     
+
+TokenAuthentication: 
+Envia junto con la autenticación un token y si es correcto va 
+dejarlo pasar 
+
+en requirements.txt poner djangorestframework-simplejwt
+ejecutar 
+pip install -r requirements.txt 
+
+en settings 
+Apps:  'rest_framework_simplejwt',
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication'
+    ]
+}
+El profe saco de la libreria 
+En urls.py 
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+
+Y los path 
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+]
+
+Thunder Client> New request  methodo get
+http://localhost:8000
+En Auth> Bearer  y copio de la ruta 
+http://localhost:8000/api/token 
+y pego ahi 
+
+-
+para cuando ejecute heroku y se vea los estaticos poner en security middleware
+"whitenoise.middleware.WhiteNoiseMiddleware",

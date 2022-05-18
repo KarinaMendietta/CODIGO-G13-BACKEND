@@ -1,0 +1,42 @@
+SUBIR A HEROKU 
+entro a heroku  la pagina 
+
+creo una nueva app en la pagina,
+heroku login 
+heroku git:clone -a kmendiettaposbackend
+
+Luego lo vinculo con postgress 
+Resources > find more adds on > Heroku postgress
+> install heroku postgress y coloco el nombre de mi 
+app >submit order form 
+
+overview> 
+heroku postgress > settings >Database Credentials >View credentials 
+
+git add .
+git commit -m "d01"       el # del deploy
+git push heroku main 
+
+Cuando despligue :
+heroku open 
+
+hacer migracion dentro de heroku 
+heroku run python manage.py migrate 
+heroku run python manage.py createsuperuser 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
