@@ -1,0 +1,23 @@
+creo cuenta+
+voya  buttons 
+cREAR boton como?
+voy a centro de apliaciones,
+https://www.paypal.com/merchantapps/appcenter
+botones de paypall 
+comenzar con ese boton le pones nombre del producto o servicio que 
+estas vendiendo, el impuesto le añades, y te da un link q a traves 
+de alli entran y te pagan 
+
+
+INSTALLED_APPS = [
+    #...
+    'paypal.standard.ipn',
+    #...
+]
+Al final de settings 
+PAYPAL_TEST = True
+PAYPAL_RECEIVER_EMAIL = ''
+
+Voy a desarrollador,
+https://developer.paypal.com/docs/checkout/
+

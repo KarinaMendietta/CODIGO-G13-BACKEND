@@ -1,0 +1,48 @@
+base de datos mysql en la nube gratis 
+Entro a clever cloud 
+https://www.clever-cloud.com/
+inicio sesion con github 
+personal 
+add on 
+my sql 
+selecciono la primeraz que es 0 costo 
+kmendietta_db_shop selecciono francia 
+
+Luego me sale las Database Credentials
+las pego en una nueva coneccion que cree con Mysql 
+Activar
+-hyde system schema   -use conection string
+para copiar el Connection URI darle click al candado para poder ver y copiarlo 
+y creo la conección 
+
+shop>settings>DATABASES 
+python manage.py migrate 
+
+python manage.py createsuperuser
+python manage.py runserver 
+
+
+payment gatheway
+intermediario entre el banco del vendedor y el banco del comprador 
+
+Al realizar pedido se va al payment gatheway,. coje los datos de la 
+tarjeta y lo deposita en el payment Gatheway, y luego este le envia 
+el dinero al vendedor 
+Existenn muchos en el mundo, paypall el mas usado creado por elon musk
+stripe  , en atlas puedes crear tu cuenta  empresa en usa delaware 
+no paga impuestos, en linea se puede hacer los docs 
+mercado pago de mercado libre,
+culqi  emprendimiento peruano soportado por bcp acepta todas las tarjetas
+divisa en soles, pero necesitas ser empresa
+
+
+
+
+
+
+
+
+
+
+
+

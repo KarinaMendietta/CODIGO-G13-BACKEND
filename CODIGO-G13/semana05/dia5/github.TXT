@@ -1,0 +1,14 @@
+Entro a la carperta donde esta el front end y ejkecuto npm start,
+npm run build
+y todosd los archivos esos son los q pego  a la carpeta del github
+
+
+crea repo en github
+crea una carpeta puse de nombre github donde ira el repo enrutalo con el repo de github 
+adentro , ejecutas git clone, y te habra cresado la carpeta comandas q es el nombvre del repo de github, abro y ahi  pegas ahi todo el build ; hago git bash  
+hago git status
+git add .
+git commit -m "repo"
+git push origin main
+
+settings pages  root  save
