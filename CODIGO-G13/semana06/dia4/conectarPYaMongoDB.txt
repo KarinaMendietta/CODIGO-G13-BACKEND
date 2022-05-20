@@ -1,0 +1,5 @@
+$ python -m venv venv
+$ source Scripts/venv/activate
+ 3 - pip install pymongo
+ 4 - crear archivo .gitingore y escribir venv/
+ 

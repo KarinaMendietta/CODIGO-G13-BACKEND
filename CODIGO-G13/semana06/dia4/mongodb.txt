@@ -1,0 +1,60 @@
+para instalar mongo db 
+
+products > comunity edition > comunity server 
+5.0.8
+windows
+msi 
+ o 
+ si usas laragon 
+ click derecho> herramientas > quick add > MongoDB4
+En laragon click derecho >mongodb>version mongodb>dir mongodb
+
+C:\laragon\bin\mongodb\mongodb-4.0.3
+
+variables editar las variables de entorno
+cuadrito qeu dice variables de entorno 
+seleccionar path y editar 
+luego nuevo y pego la ruta 
+
+-
+despues descargar compass 
+1.31.
+zipiabkle
+windows 64 bit 7 msi 
+msi 
+
+BASE DE DATOS NOSQL 
+limitante de las bases de datos sql, cuando se hacen grandes.
+tener multiples conecciones con multiples.. se hjace dificil 
+usar las bases tradicionales las relacionales.
+
+Las bd NoSql, es casi plano, es mas rapido, carga mas rapido 
+la informacion.
+
+MongoDB
+Key-value stores:  clave valor
+Graph databases: como nodos, parte como una relacion 
+Wide-column stores: una fila y dentro tengo sub columna con valor asi varios  
+Document databases:parecido tipo json pero contenido dentro de un doc, que es
+ como un documento. mongo db es asi. ña informacion se registra en formato BSON 
+Es un Base distribuida, puede estar en multiples servidores 
+Todo el codigo de mongodb es de codigo abierto es gratis, lo unico que cobra es 
+el alojamiento donde se va mantener esta base de datos  
+
+
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+

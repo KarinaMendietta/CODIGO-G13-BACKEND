@@ -1,0 +1,122 @@
+escribir mongo para entrar a mongo 
+y ahi recien escribe los comandos 
+COMANDOS 
+show dbs    muestra las bases de datos
+CREAR BASE DE DATOS EN MONGO 
+no necesito hacer una estructura para crear la base de datos.
+use cursos; creo una db llamada cursos
+> show dbs
+admin   0.000GB
+config  0.000GB
+local   0.000GB
+> use cursos;  crear base de datos llamada cursos
+switched to db cursos
+> show dbs      luego de crearla no la muestra porue esta vacia
+admin   0.000GB
+config  0.000GB
+local   0.000GB
+>
+
+> db.alumnos.insertOne({nombre:"cesar mayta",email:"cesarmayta@gmail.com"})
+crea un documento dentro de la colección llamada alumnos
+objectId  es como una llave primaria 
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("6286f31e9d96f4f068b12db6")
+}
+> show collections;
+alumnos
+
+> db.alumnos.find();
+{ "_id" : ObjectId("6286f31e9d96f4f068b12db6"), "nombre" : "cesar mayta", "email" : "cesarmayta@gmail.com" }
+
+> db.alumnos.find().pretty();     muestra los documentos de la colección alumnos
+{
+        "_id" : ObjectId("6286f31e9d96f4f068b12db6"),
+        "nombre" : "cesar mayta",
+        "email" : "cesarmayta@gmail.com"
+}
+
+> db.alumnos.insertMany([{nombre:"laura pacheco",email:"laura@gmail.com",nota:20},{nombre:"jose lagos",email:"jose@gmail.com",nota:10},{nombre:"ana davila",email:"anita@gmail.com",nota:15}])
+{
+        "acknowledged" : true,
+        "insertedIds" : [
+                ObjectId("6286fbbec56d5457dcaa34b1"),
+                ObjectId("6286fbbec56d5457dcaa34b2"),
+                ObjectId("6286fbbec56d5457dcaa34b3")
+        ]
+}
+
+db.alumnos.find() 
+db.alumnos.updateOne({nombre:"cesar mayta"},{$set:{nota:11}})    con el $ agrega
+db.alumnos.deleteOne({})
+
+--
+CREAR BASE DE DATOS DEMO 
+Copio inventario del mismo mongo 
+INSERTAR UINVENTARIO 
+db.inventory.insertMany([
+   { item: "journal", qty: 25, size: { h: 14, w: 21, uom: "cm" }, status: "A" },
+   { item: "notebook", qty: 50, size: { h: 8.5, w: 11, uom: "in" }, status: "A" },
+   { item: "paper", qty: 100, size: { h: 8.5, w: 11, uom: "in" }, status: "D" },
+   { item: "planner", qty: 75, size: { h: 22.85, w: 30, uom: "cm" }, status: "D" },
+   { item: "postcard", qty: 45, size: { h: 10, w: 15.25, uom: "cm" }, status: "A" }
+]);
+
+db.inventory.find().pretty()
+-
+> use cursos
+switched to db cursos
+> db.alumnos.find()
+{ "_id" : ObjectId("6286f31e9d96f4f068b12db6"), "nombre" : "cesar mayta", "email" : "cesarmayta@gmail.com" }
+{ "_id" : ObjectId("6286fbbec56d5457dcaa34b1"), "nombre" : "laura pacheco", "email" : "laura@gmail.com", "nota" : 20 }
+{ "_id" : ObjectId("6286fbbec56d5457dcaa34b2"), "nombre" : "jose lagos", "email" : "jose@gmail.com", "nota" : 10 }
+{ "_id" : ObjectId("6286fbbec56d5457dcaa34b3"), "nombre" : "ana davila", "email" : "anita@gmail.com", "nota" : 15 }
+> db.alumnos.find({},{nombre:1})
+{ "_id" : ObjectId("6286f31e9d96f4f068b12db6"), "nombre" : "cesar mayta" }
+
+{ "_id" : ObjectId("6286fbbec56d5457dcaa34b1"), "nombre" : "laura pacheco" }
+{ "_id" : ObjectId("6286fbbec56d5457dcaa34b2"), "nombre" : "jose lagos" } { "_id" : ObjectId("6286fbbec56d5457dcaa34b3"), "nombre" : "ana davila" } > db.alumnos.find({},{_id:0,nombre:1});
+{ "nombre" : "cesar mayta" }
+{ "nombre" : "laura pacheco" }
+{ "nombre" : "jose lagos" }
+{ "nombre" : "ana davila" }
+> db.alumnos.find({nota:{$gte:10}},{_id:0,nombre:1});
+{ "nombre" : "laura pacheco" }
+{ "nombre" : "jose lagos" }
+{ "nombre" : "ana davila" }
+> db.alumnos.find({nota:{$lte:10}},{_id:0,nombre:1});
+{ "nombre" : "jose lagos" }
+-
+PROJECCIONES 
+
+OPERACION DE AGREGACIONES 
+> db.orders.insertMany( [    { _id: 0, name: "Pepperoni", size: "small", price: 19,      quantity: 10, date: ISODate( "2021-03-13T08:14:30Z" ) },
+ { _id: 1, name: "Pepperoni", size: "medium", price: 20,      quantity: 20, date : ISODate( "2021-03-13T09:13:24Z" ) },    { _id: 2, name: "Pepperoni", size: "large", price: 21,      quantity: 30, date : ISODate( "2021-03-17T09:22:12Z" ) },    { _id: 3, name: "Cheese", size: "small", price: 12,
+     quantity: 15, date : ISODate( "2021-03-13T11:21:39.736Z" ) },    { _id: 4, name: "Cheese", size: "medium", price: 13,      quantity:50, date : ISODate( "2022-01-12T21:23:13.331Z" ) },    { _id: 5, name: "Cheese", size: "large", price: 14,      quantity: 10, date : ISODate( "2022-01-12T05:08:13Z" ) },    { _id: 6, name: "Vegan", size: "small", price: 17,      quantity: 10, date : ISODate( "2021-01-13T05:08:13Z" ) },    { _id: 7, name: "Vegan", size: "medium", price: 18,      quantity: 10, date : ISODate( "2021-01-13T05:10:13Z" ) } ] )
+
+{
+        "acknowledged" : true,
+        "insertedIds" : [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+        ]
+}
+
+> db.orders.find().pretty()
+> db.orders.count();
+8
+
+
+
+
+
+
+
+
