@@ -1,0 +1,23 @@
+mongo compass 
+
+products > mongodb compass 
+try/dowload/compass
+download 1.31.3(stable)
+windows 64 bit (7-)(msi)
+msi 
+
+-
+ya instalado prendo laragon, y conecto el mongo db
+indexes 
+cuando hago ua busqueda en una tabla, compara uno a uno los valores,
+cuando encuentra el valor exacto retorna el resultado
+lños indeces permite agilizar eso, donde tiene la posicion de un valor, 
+primero busca en los indices y luego adentro 
+
+Validation 
+
+mongodb atlas 
+https://cloud.mongodb.com/v2/62883af90776405ac2f91fe1#setup/access?includeToast=true
+usar free crear servidor gratis 
+creo usuario y clave random
+my local enviroment

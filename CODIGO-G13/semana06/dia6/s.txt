@@ -1,0 +1,26 @@
+$ python -m venv venv
+$ source Venv/Scripts/activate
+$ pip install django
+$ pip install djongo
+
+$ django-admin startproject colegio
+(venv) 
+$ cd colegio
+(venv) 
+$ python manage.py startapp app
+
+
+
+python manage.py shell
+
+from api.models import Matricula,Curso,Alumno
+m = Matricula()
+m.nro = '1234'
+m.alumno = {
+    'nombre':'tunombre',
+    'email':'tuemail@gmail.com'
+}
+m.cursos = [
+    {'nombre':'python'},{'nombre':'mongodb'},{'nombre':'mysql'}
+]
+m.save()
