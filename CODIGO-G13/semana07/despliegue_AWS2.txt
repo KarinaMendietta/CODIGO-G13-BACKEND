@@ -1,0 +1,58 @@
+creo repo en github
+clono  en aws en gitbash
+
+abro en aws   copio las csrpetas de shop  menos el venv  , pego al shopaws
+
+gitbash en showpaws git add .
+git commit -m " "
+git push origin main
+
+
+en ubunto estoy en el ssh y clono el repo con le link 
+ls   y veo que esta shopaws
+
+En ubuntu
+showpaws uninstall django
+
+Step 0: sudo apt install python3-dev build-essential
+
+Step 1: sudo apt install libssl1.1
+
+Step 2: sudo apt install libssl1.1=1.1.1f-1ubuntu2
+
+Step 3: sudo apt install libssl-dev
+
+Step 4: sudo apt install libmysqlclient-dev
+
+Step 5: pip3 install wheel mysqlclient
+
+ubicate en la carpeta shopaws
+pip install -r requirements.txt
+
+
+ subuir cambios de git a github en el vsc
+luego entro a l gibash en aws
+source venv/bin/activate
+ en shopaws 
+y hago gitpull bajo los cambios
+python manage.py runserver 0.0.0.0:8000
+
+http://0.0.0.0:8000/ y segun este formato cambias solo por la ip de la instancia y pegas en la pestaña y wuala.
+-
+Gunicorn es un wcgi
+
+
+dentro de ubuntu
+me ubico en shopaws gunicorn --bind 0.0.0.0:8000 shop.wsgi
+luego false en settings
+python3 manage.py collectstatic
+gunicorn --bind 0.0.0.0:8000 shop.wsgi
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,38 @@
+servidor de linux
+que hace laragon, convierte la pc en un servidor,
+un servidor es una compu que esta brindando servicio, pero un servicio relacionado a tecnologia, capacidad de poder publicr una web, todos los servidores tienen puertos(puertas)
+puerta de paginas web es la 80por defecto, mysql atiende por puerta 3306, mongodb por 27017, la compu tiene muchos mas puertos,
+lo del largon es un servidor local, q puedo acceder de mi pc o de la red
+todo serviudor tiene direccion ip, esto es como su dni para identificarlo en toda la red, el mio es 192.168.18.245
+para una pc q va ser un servidor usamos linux, 
+distribucion es creada por una comunidad, ubuntu s una de ellas, es mas estavble q windows , es super ligero.
+
+.virtual box hara q tenga otra compu dentro de mi compu, es decir tendra otro ip 
+
+nat puente entre maquina virt y mi mquina
+adpt puente crea la compu fisica como si fuera real 
+
+
+
+192.168.18.245
+
+sudo ap
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

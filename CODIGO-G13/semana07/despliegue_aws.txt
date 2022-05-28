@@ -1,0 +1,161 @@
+#PASOS PARA DESPLIEGUE EN AWS
+1 - actualizar ubuntu e instalar librerias
+sudo apt update
+sudo apt install python3-pip python3-dev libpq-dev postgresql postgresql-contrib nginx curl
+
+2 - CREAMOS LA BASE DE DATOS EN postgresql
+sudo -u postgres psql
+CREATE DATABASE shop;
+CREATE USER codigo WITH PASSWORD 'codigo2022';
+
+ALTER ROLE codigo SET client_encoding TO 'utf8';
+ALTER ROLE codigo SET default_transaction_isolation TO 'read committed';
+ALTER ROLE codigo SET timezone TO 'UTC';
+
+GRANT ALL PRIVILEGES ON DATABASE shop TO codigo;
+
+\q
+
+2 - CREAMOS ENTORNO VIRTUAL Y CONFIGURAMOS python3
+
+sudo apt install python3.8-venv
+python3 -m venv venv
+source venv/bin/activate
+
+pip install django
+pip freeze
+
+django-admin startproject prueba
+ls
+cd prueba
+ls
+cd prueba
+ls   (veo que ahi esta el archivo settings ese es el q me interesa)
+sudo vim settings.py (y abre django settings for prueba project...)
+(Busco el 
+ALLOWED_HOST = ['*']        uso el i de insertar para escribir, luego presiono ESC:wq  y asi lo guarde.
+
+Al hacer 
+cat settings.py     vere que el archivo se modifico
+
+Ahora desplegar el proyecto
+Salgo de prueba 
+cd ..
+ls
+recuerda tener activo el entorno virtual  tienes q estar en la ruta principal osea retrocede con cd ..  hasta llegar alli
+source venv/bin/activate
+cd prueba
+python manage.py runserver 0.0.0.0:8000        y se despliega 
+
+ssh -i "cursoaws.pem" ubuntu@ec2-3-137-159-49.us-east-2.compute.amazonasws.com
+
+http://3.137.159.49:8000/
+
+
+De ahi configura las reglas  ( vesource video 02:30 min por ahi 25/05/2022)
+en mi instancia > seguridad >
+   
+
+
+------
+
+DESPLIEGUYE CON GUNICORN Y NGINX
+1 - probamos gunicorn
+recolectamos staticos
+
+python3 manage.py collectstatic
+gunicorn --bind 0.0.0.0:8000 shop.wsgi
+
+2 - copiar los archivos al servidor
+primero se debe subir por git y hacer git pull en el servidor
+
+ingresamos a la carpeta awsconf
+
+sudo cp gunicorn.socket /etc/systemd/system/gunicorn.socket
+
+sudo cp gunicorn.service /etc/systemd/system/gunicorn.service
+
+sudo cp shop /etc/nginx/sites-available/shop
+
+3 - activamos nuestro socket
+
+sudo systemctl start gunicorn.socket
+sudo systemctl enable gunicorn.socket
+
+4 - verificamos el status del socket y servicio
+
+qz
+file /run/gunicorn.sock
+
+sudo systemctl status gunicorn
+
+curl --unix-socket /run/gunicorn.sock localhost
+
+5 - configuramos nginx
+
+sudo ln -s /etc/nginx/sites-available/shop /etc/nginx/sites-enabled
+
+sudo nginx -t
+
+sudo systemctl restart nginx
+
+-
+sudo cp gunicorn.socket /etc/systemd/system/gunicorn.socket
+
+sudo cp gunicorn.service /etc/systemd/system/gunicorn.service
+
+sudo cp shop /etc/nginx/sites-available/shop
+
+cesarmayta — hoy a las 21:37
+sudo systemctl status gunicorn.socket
+
+cesarmayta — hoy a las 21:52
+cd /etc/ningx/sites-available
+[21:55]
+sudo vim shop
+[21:57]
+sudo ln -s /etc/nginx/sites-available/shop /etc/nginx/sites-enabled
+[22:00]
+sudo systemctl restart nginx
+
+cesarmayta — hoy a las 22:18
+sudo systemctl status gunicorn.socket
+[22:18]
+file /run/gunicorn.sock
+[22:22]
+sudo ln -s /etc/nginx/sites-available/shop /etc/nginx/sites-enabled
+[22:22]
+sudo systemctl restart nginx
+[22:28]
+python manage.py collectstatic
+[22:35]
+sudo systemctl status gunicorn
+[22:35]
+sudo systemctl restart gunicorn
+[22:36]
+sudo journalctl -u gunicorn.socket
+[22:37]
+cd /etc/systemd/system
+[22:40]
+sudo systemctl restart gunicorn
+[22:40]
+sudo systemctl status gunicorn
+[22:45]
+sudo systemctl status gunicorn.socket
+[22:46]
+file /run/gunicorn.sock
+[22:46]
+sudo systemctl status gunicorn
+
+sudo systemctl restart gunicorn
+NUEVO
+[22:52]
+sudo nginx -t
+[22:52]
+sudo systemctl restart nginx
+
+
+
+
+
+
