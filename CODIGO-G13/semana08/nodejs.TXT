@@ -1,0 +1,18 @@
+nodejs es como decir javascript del backend
+egma script , regula todos los lenguajes script q deben funcionar en cualquier explorador
+jquery librerua creada sobre javascript 
+nodejs es javascript que corre fuera del navegador ( ver video youtube)
+es un compilador js con motor v8 en la compu
+es un entorno de ejecucion,
+
+setInterval hace un conteo
+
+Callback si pongo demasiado cseria un call back hell, porque ya demasiadas, uno se marea, para no hacer eso usemo las promesas.
+
+Promesas,se define con palabra reservada Promise, 
+las funciones de js se comportan como clase que se pueden instanciar
+puedo estructurar mejor mi codigo sin estar anidando un monton, con resolve y reject si esta bien o mal guardara y pasaremos 
+
+expressjs es un framework para nodejs, implementa loi necesario para levantar un backedn completo con node de maera sencilla
+
+

@@ -1,0 +1,19 @@
+{
+  "name": "api_colegio",
+  "version": "1.0.0",
+  "description": "api de base de datos db_colegio",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "karina"
+  },
+  "author": "karina mendietta",
+  "license": "ISC",
+  "keywords": [],
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}

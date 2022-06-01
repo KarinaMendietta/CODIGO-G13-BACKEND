@@ -50,9 +50,22 @@ gunicorn --bind 0.0.0.0:8000 shop.wsgi
 
 
 
+ssh -i "cursoaws.pem" ubuntu@ec2-3-145-59-51.us-east-2.compute.amazonaws.com
+
+3.145.59.51
 
 
+sudo vim gunicorn
+los  3 files que vimos permiten q django trabaje en modo produccion
+-
 
+cd /etc/ningx/sites-available
+[21:55]
+sudo vim shop
+[21:57]
+sudo ln -s /etc/nginx/sites-available/shop /etc/nginx/sites-enabled
 
-
+sugo nginx -t
+[22:00]
+sudo systemctl restart nginx
 

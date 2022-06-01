@@ -1,0 +1,39 @@
+
+1 - npm init -y
+2 - npm install express
+3 - creo gitignore y agrego node_modules/
+4 - creo el archivo index.js
+
+
+npm install --save-dev nodemon
+"dev":"nodemon index.js",
+
+-
+Prender laragon
+conectate a la base de datos
+
+import sql, buscalo en la carpeta que este, selecciona, importa y apareceran las tablas, entra a db_colegio > .. > open query, copio del poblado query y pego en ...
+
+ejecuto cada execute  y me traera los datos 
+-
+haremos una api
+mysql - npm search
+dentro de la carpeta donde esta el package json
+npm install mysql
+
+crear archivo database.js
+para ejecutar node.database
+
+
+
+
+
+
+
+
+
+
+
+
+
+
