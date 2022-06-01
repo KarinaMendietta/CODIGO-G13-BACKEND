@@ -13,6 +13,166 @@ Promesas,se define con palabra reservada Promise,
 las funciones de js se comportan como clase que se pueden instanciar
 puedo estructurar mejor mi codigo sin estar anidando un monton, con resolve y reject si esta bien o mal guardara y pasaremos 
 
-expressjs es un framework para nodejs, implementa loi necesario para levantar un backedn completo con node de maera sencilla
+expressjs es un framework para nodejs, implementa lo necesario para levantar un backedn completo con node de maera sencilla
+-
+31/05
+INICIAR NODEJS
+Todo nodejs debe tener un package json donde esta la info del proyecto y de las dependencias y scripts
+
+1. PRIMERO SIEMPRE
+npm init
+
+Press ^C at any time to quit.
+package name: (dia2) api_colegio
+version: (1.0.0)
+description: api rest para mi base de datos db_colegio
+entry point: (index.js)
+test command:
+git repository:
+keywords: api
+author: Karina Mendietta
+license: (ISC) MIT
+
+Is this OK? (yes) yes
+Y se crea mi package json con la info de arriba, ese archivo se puede editar en el VSC
+
+2. Instalar express
+npm install express
+
+, se creara node_modules, en el package json se habrá creado dependencies, cuando suba a mi github y mi compañero baje mi proyecto, con un npm install ,instalara todo lo que yo habia instalado
+
+3. Crear archivo .gitignore y agregar node_modules/
+
+4. En el package.json en scripts poner
+  "scripts": {
+    "start": "node index.js",
+sirve para que cuando yo ponga npm run start, ejecute el comando node index.js
+
+5. Crear archivo index.js, para ejecutarlo 
+npm start   , lo que hace es que inicia el proyecto
+npm run start    ,hace lo mismo
+asi se iniciara el proyecto en produccion y poder desplegarlo, con 
+este comando llamara a mi archivo index del proyecto.
+En index.js defino mi puerto 5000 
+
+6. Instalar nodemon (demonio), para que cuando haga un cambio se actualice y no tenga que estar haciendo npm start a cada rato por cada cambio
+Instalar en modo desarrollo, no se debe usar para produccion real, ya que solo debe funcionar para hacer pruebas nada mas  
+
+npm install --save-dev nodemon
+se creara em package.json devdependencias dependencias de desarrollo y ahi estara nodemon, no esta dentro de las dependencias normales
+
+7. En el package.json en scripts poner
+  "scripts": {
+    "dev":"nodemon index.js",
+
+8. ejecutar nodemon
+npm run dev
+
+CREAR LA APLICACION, CREAR APPI USANDO EXPRESS Y base de datos MYSQL
+
+1. Jalar las dos bases de datos que usaremos db_colegio db_colegio_poblado en una carpeta db
+
+2. Encender la base de datos Laragon
+
+3. Crear la conección con la extension cilindrito de database, name: local  mysql > connect, y en la conection importar la base de datos db_colegio , click derecho import sql , db_colegio
+
+4. click open query (hojita a la derecha del db_colegio), copio todo del db_colegio_poblado y lo pego en el open query 
+Y ahora ejecuto cada uno y me traera los datos
+
+LIBRERIA PARA CONECTARME A MYSQL
+1. 
+https://www.npmjs.com/search?q=mysql
+
+2. Ubico mi ruta donde dentro esta la carpeta package json a esa altura debo instalar mysql
+
+3. npm install mysql 
+y ahora aparecera en dependencies mysql
+
+CREAR DATABASE.JS
+1. Creo archivo database.js
+
+2. Creo la conección a mi base de datos 
+require('mysql');  host   user   password  database   
+connect   ...   end. Cambiar el select por la database
+
+3. Ejecutar con node database.js
+
+4. En index añado la coneccion a mysql  require de database.
+Sera como una ruta el  app.get('/alumno', ..  de la tabla alumno, si no hay error, resolve las rows(filas) sino que salga el error.
+
+5. Ejecuto npm run dev    y recuerda en la ruta es /alumno
+
+HACER METODO POST
+1. Hacer un app.post('/alumno',  poner nombre email celular github, porque son los datos que habian en el get, req body me trae todo lo dekl body
+const query, donde insertare en la tabla alumno en los nombre,email,github,celular.
+
+2. Hacer la prueba con thunder client extension 
+con el get y ruta , me sale el json de alumnos, bien.
+con post, la misma ruta, headers  añadir 
+Content-Type    application/json
+En body
+{
+    "alumno_id": 1,
+    "alumno_nombre": "César Mayta",
+    "alumno_email": "cesarmayta@gmail.com",
+    "alumno_celular": "956290589",
+    "alumno_github": "https://github.com/cesarmayta"
+  } 
+
+No funcionara porque no tiene un middleware, ya que express no recibe o permite formatoi json, añadir la funcion midleware
+app.use(express.json());		parcear dara en json
+
+En mi request SEND y alumno creado
+
+METODO PUT 
+1. app.put('/alumno/:id'
+constante nombre email celular github
+constante id 
+
+2. verifico con thunder client, cambio a PUT alumno/6 , porque al alumno 6 quiero modificar , modifico en el body y luego SEND 
+
+* TAMBIEN PUEDES VERIFICAR CON POSTMAN (es igualito)
+
+METODO DELETE
+app.delete('/alumno/:id',
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
